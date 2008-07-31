@@ -1,0 +1,20 @@
+--- xpyb-0.9/src/Makefile.am.orig	2008-06-04 05:06:08.000000000 +0200
++++ xpyb-0.9/src/Makefile.am	2008-07-31 17:13:22.677338884 +0200
+@@ -6,13 +6,14 @@
+ 		xc_misc.xml
+ 
+ pkgpythondir = $(pythondir)/xcb
++pkgpyexecdir = $(pyexecdir)/xcb
+ 
+-pkgpython_LTLIBRARIES = xcb.la
++pkgpyexec_LTLIBRARIES = xcb.la
+ 
+ xcb_la_LIBADD = $(LIBXCB_LIBS)
+ xcb_la_CPPFLAGS = -I$(PYTHON_INCLUDE)
+-xcb_la_CFLAGS = -g $(CWARNFLAGS)
+-xcb_la_LDFLAGS = -module
++xcb_la_CFLAGS = $(CWARNFLAGS)
++xcb_la_LDFLAGS = -module -avoid-version
+ xcb_la_SOURCES = conn.c constant.c cookie.c error.c event.c except.c \
+ 		 ext.c extkey.c iter.c list.c module.c protobj.c \
+ 		 reply.c request.c response.c struct.c union.c void.c \
