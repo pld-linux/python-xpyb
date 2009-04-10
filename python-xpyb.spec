@@ -1,12 +1,12 @@
 Summary:	X-protocol Python Binding
 Summary(pl.UTF-8):	X-protocol Python Binding - wiązanie Pythona do protokołu X
 Name:		python-xpyb
-Version:	1.0
+Version:	1.1
 Release:	1
 License:	MIT?
 Group:		Development/Languages/Python
 Source0:	http://xcb.freedesktop.org/dist/xpyb-%{version}.tar.bz2
-# Source0-md5:	ee142b17036c755679784576b9d032b5
+# Source0-md5:	0d82bbaa97f89e41aada9fab5630147a
 Patch0:		%{name}-dir.patch
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	autoconf >= 2.57
