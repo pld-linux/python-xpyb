@@ -1,12 +1,12 @@
 Summary:	X-protocol Python Binding
 Summary(pl.UTF-8):	X-protocol Python Binding - wiązanie Pythona do protokołu X
 Name:		python-xpyb
-Version:	1.1
+Version:	1.2
 Release:	1
-License:	MIT?
+License:	Public Domain
 Group:		Development/Languages/Python
 Source0:	http://xcb.freedesktop.org/dist/xpyb-%{version}.tar.bz2
-# Source0-md5:	0d82bbaa97f89e41aada9fab5630147a
+# Source0-md5:	953cd851d7ad3e59577062ca53c77f3d
 Patch0:		%{name}-dir.patch
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	autoconf >= 2.57
@@ -22,11 +22,11 @@ BuildRequires:	xcb-proto >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-xpyb provides a Python binding to the X Window System protocol via
+XPyB provides a Python binding to the X Window System protocol via
 libxcb.
 
 %description -l pl.UTF-8
-xpyb udostępnia wiązanie Pythona do protokołu X Window System poprzez
+XPyB udostępnia wiązanie Pythona do protokołu X Window System poprzez
 libxcb.
 
 %prep
@@ -57,10 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc COPYING NEWS README doc/XcbPythonBinding.txt
 %dir %{py_sitedir}/xcb
 %attr(755,root,root) %{py_sitedir}/xcb/xcb.so
-%dir %{py_sitescriptdir}/xcb
-%{py_sitescriptdir}/xcb/*.py[co]
+%{py_sitedir}/xcb/*.py[co]
 # -devel
 %{_pkgconfigdir}/xpyb.pc
