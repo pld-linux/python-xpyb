@@ -8,9 +8,8 @@ Group:		Development/Languages/Python
 Source0:	http://xcb.freedesktop.org/dist/xpyb-%{version}.tar.bz2
 # Source0-md5:	b9b70746cd348836516edcba96d24677
 Patch0:		%{name}-dir.patch
-Patch1:		xpyb-python.patch
-Patch2:		xpyb-1.3.1-xcbproto-1.9.patch
-Patch3:		xpyb-1.3.1-xcbproto-1.13.patch
+Patch1:		git.patch
+Patch2:		xpyb-1.3.1-xcbproto-1.13.patch
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -51,7 +50,6 @@ Pliki programistyczne pakietu X Python Binding.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}

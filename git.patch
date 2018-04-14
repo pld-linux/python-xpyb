@@ -1,0 +1,73 @@
+From ed0147e182cc739ae77c34675080e14d498492b2 Mon Sep 17 00:00:00 2001
+From: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date: Sun, 18 Aug 2013 16:44:31 -0700
+Subject: xpybConn_call should ensure ext is not NULL before using it
+
+Found by Oracle's Parfait 1.2 static analyzer:
+   Null pointer dereference (CWE 476): Read from null pointer ext
+        at line 322 of /export/alanc/X.Org/amd64-parfait/xcb/xpyb/src/conn.c
+            in function 'xpybConn_call'.
+          Function xpybConn_load_ext may return constant 'NULL' at line 141,
+              called at line 321.
+          Null pointer introduced at line 141 in function 'xpybConn_load_ext'.
+
+Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+---
+ src/conn.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/conn.c b/src/conn.c
+index 39833c8..1b21d17 100644
+--- a/src/conn.c
++++ b/src/conn.c
+@@ -319,7 +319,7 @@ xpybConn_call(xpybConn *self, PyObject *args, PyObject *kw)
+ 
+     /* Check our dictionary of cached values */
+     ext = xpybConn_load_ext(self, key);
+-    if (!ext->present) {
++    if (ext != NULL && !ext->present) {
+ 	PyErr_SetString(xpybExcept_ext, "Extension not present on server.");
+ 	Py_DECREF(ext);
+ 	return NULL;
+-- 
+cgit v1.1
+
+From 56d56615db00445679fde3742fc72c793a982d2e Mon Sep 17 00:00:00 2001
+From: Matt Turner <mattst88@gmail.com>
+Date: Sat, 4 Mar 2017 11:33:12 -0800
+Subject: Add CARD64/INT64 protocol types
+
+The following commit to xcb/proto, included in the 1.9 release, added CARD64
+and INT64 types.
+
+    commit 4d8241c67c83957aa0f612da6823db2d18fdd314
+    Author: Keith Packard <keithp@keithp.com>
+    Date:   Thu Jul 11 15:56:54 2013 -0700
+
+        Add CARD64/INT64 protocol types
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Uli Schlachter <psychon@znc.in>
+---
+ src/py_client.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/py_client.py b/src/py_client.py
+index 5c83e46..113abd5 100755
+--- a/src/py_client.py
++++ b/src/py_client.py
+@@ -16,9 +16,11 @@ _py_reserved_words = [ 'None', 'def', 'class', 'and', 'or' ]
+ _cardinal_types = {'CARD8':  'B', 'uint8_t': 'B',
+                    'CARD16': 'H','uint16_t': 'H',
+                    'CARD32': 'I','uint32_t': 'I',
++                   'CARD64': 'L','uint64_t': 'L',
+                    'INT8':   'b', 'int8_t':  'b',
+                    'INT16':  'h', 'int16_t': 'h',
+                    'INT32':  'i', 'int32_t': 'i',
++                   'INT64':  'l', 'int64_t': 'l',
+                    'BYTE': 'B',
+                    'BOOL': 'B',
+                    'char': 'b',
+-- 
+cgit v1.1
+
